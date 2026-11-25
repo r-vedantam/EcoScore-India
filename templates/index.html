@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="text-center mb-4">
+    <h1 class="display-4 fw-bold text-body-emphasis">India AQI Leaderboard</h1>
+    <p class="lead">Rankings based on the EcoQI Scoring System (100 is best)</p>
+</div>
+
+<div class="row justify-content-center mb-4">
+    <div class="col-md-6">
+        <input list="cities" id="searchInput" class="form-control form-control-lg" placeholder="Search for a city...">
+    </div>
+</div>
+
+<div class="table-responsive shadow-sm rounded">
+    <table class="table table-hover align-middle mb-0" id="leaderboardTable">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col" class="py-3">Rank</th>
+                <th scope="col" class="py-3">City</th>
+                <th scope="col" class="py-3 text-center">Avg AQI</th>
+                <th scope="col" class="py-3 text-center">EcoQI Score</th>
+                <th scope="col" class="py-3 text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for city in cities %}
+            <tr>
+                <th scope="row" class="text-muted">#{{ loop.index }}</th>
+                <td class="fw-semibold city-name">{{ city.name }}</td>
+                <td class="text-center">{{ city.avg_aqi }}</td>
+                <td class="text-center">
+                    <span class="badge {{ get_grade_color(city.grade) }} px-3 py-2 fs-6">
+                        {{ city.grade }} ({{ city.ecoqi }})
+                    </span>
+                </td>
+                <td class="text-center">
+                    <a href="/city/{{ city.id }}" class="btn btn-sm btn-outline-primary">View Details</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" class="text-center py-4 text-muted">No data available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

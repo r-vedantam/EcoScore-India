@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="mb-4">
+    <a href="/" class="btn btn-outline-secondary">&larr; Back to Leaderboard</a>
+</div>
+
+<div class="row align-items-center mb-4">
+    <div class="col-md-8">
+        <h2 class="display-5 fw-bold text-body-emphasis mb-0">{{ city.name }}</h2>
+        <h6 class="text-muted fs-5 mt-1">{{ city.state if city.state else 'State N/A' }}</h6>
+    </div>
+    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+        <div class="card bg-body-tertiary border-0 shadow-sm d-inline-block text-start">
+            <div class="card-body p-3">
+                <span class="text-muted d-block small fw-bold text-uppercase">Overall EcoQI Grade</span>
+                <span class="badge {{ get_grade_color(stats.grade) }} fs-4 mt-1">{{ stats.grade }} ({{ stats.ecoqi }})</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Summary Stats Row -->
+<div class="row g-3 mb-5">
+    <div class="col-6 col-md-3">
+        <div class="card h-100 border-0 shadow-sm bg-body-tertiary">
+            <div class="card-body text-center">
+                <h6 class="text-muted mb-2">Avg AQI</h6>
+                <h3 class="mb-0 fw-bold">{{ stats.avg_aqi }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card h-100 border-0 shadow-sm bg-body-tertiary">
+            <div class="card-body text-center">
+                <h6 class="text-muted mb-2">Worst AQI</h6>
+                <h3 class="mb-0 fw-bold text-danger">{{ stats.worst_aqi }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card h-100 border-0 shadow-sm bg-body-tertiary">
+            <div class="card-body text-center">
+                <h6 class="text-muted mb-2">Best AQI</h6>
+                <h3 class="mb-0 fw-bold text-success">{{ stats.best_aqi }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card h-100 border-0 shadow-sm bg-body-tertiary">
+            <div class="card-body text-center">
+                <h6 class="text-muted mb-2">Top Pollutant</h6>
+                <h3 class="mb-0 fw-bold">{{ stats.most_common_pollutant }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Category Distribution -->
+<div class="mb-5">
+    <h4 class="mb-3">Air Quality Distribution</h4>
+    <div class="d-flex flex-wrap gap-2">
+        {% if categories['Good'] > 0 %}<span class="badge bg-success p-2 fs-6">Good: {{ categories['Good'] }} days</span>{% endif %}
+        {% if categories['Satisfactory'] > 0 %}<span class="badge bg-info text-dark p-2 fs-6">Satisfactory: {{ categories['Satisfactory'] }} days</span>{% endif %}
+        {% if categories['Moderate'] > 0 %}<span class="badge bg-warning text-dark p-2 fs-6">Moderate: {{ categories['Moderate'] }} days</span>{% endif %}
+        {% if categories['Poor'] > 0 %}<span class="badge bg-orange text-dark p-2 fs-6" style="background-color:#fd7e14;">Poor: {{ categories['Poor'] }} days</span>{% endif %}
+        {% if categories['Very Poor'] > 0 %}<span class="badge bg-danger p-2 fs-6">Very Poor: {{ categories['Very Poor'] }} days</span>{% endif %}
+        {% if categories['Severe'] > 0 %}<span class="badge bg-dark text-white p-2 fs-6">Severe: {{ categories['Severe'] }} days</span>{% endif %}
+    </div>
+</div>
+
+<h4 class="mb-3">Daily Readings</h4>
+<div class="table-responsive shadow-sm rounded">
+    <table class="table table-bordered table-hover mb-0 align-middle">
+        <thead class="table-light">
+            <tr>
+                <th class="py-3">Date</th>
+                <th class="py-3 text-center">AQI</th>
+                <th class="py-3">Category</th>
+                <th class="py-3">Prominent Pollutant</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reading in readings %}
+            <tr>
+                <td class="text-secondary">{{ reading.date }}</td>
+                <td class="text-center fw-bold">
+                    {% if reading.aqi <= 50 %}
+                        <span class="text-success">{{ reading.aqi }}</span>
+                    {% elif reading.aqi <= 100 %}
+                        <span class="text-info">{{ reading.aqi }}</span>
+                    {% elif reading.aqi <= 200 %}
+                        <span class="text-warning">{{ reading.aqi }}</span>
+                    {% elif reading.aqi <= 300 %}
+                        <span style="color: #fd7e14;">{{ reading.aqi }}</span>
+                    {% elif reading.aqi <= 400 %}
+                        <span class="text-danger">{{ reading.aqi }}</span>
+                    {% else %}
+                        <span class="text-body">{{ reading.aqi }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ reading.category }}</td>
+                <td>{{ reading.prominent_pollutant }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" class="text-center py-4">No readings found for this city.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

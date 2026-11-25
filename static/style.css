@@ -1,0 +1,70 @@
+/* Basic */
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Bootstrap based glacier theme */
+[data-bs-theme="glacier"] {
+
+    /* Body */
+    --bs-body-bg: #dceff8;
+    --bs-body-color: #12354a;
+
+    /* Cards */
+    --bs-tertiary-bg: #edf7fd;
+
+    /* Navbar */
+    --bs-secondary-bg: #c7e6f8;
+
+    /* Borders */
+    --bs-border-color: #8ebfd9;
+
+    /* Text */
+    --bs-secondary-color: #4b7086;
+    --bs-emphasis-color: #06283d;
+
+    /* Links */
+    --bs-link-color: #0077b6;
+    --bs-link-hover-color: #005b8a;
+
+    /* Buttons */
+    --bs-primary: #00a8e8;
+    --bs-primary-rgb: 0,168,232;
+
+    /* Tables */
+    --bs-table-bg: #edf7fd;
+    --bs-table-striped-bg: #d8edf8;
+    --bs-table-hover-bg: #c4e4f4;
+    --bs-table-border-color: #8ebfd9;
+
+    /* Dark utility */
+    --bs-dark: #0a425d;
+}
+
+/* Slight frosted glass effect for navbar in all themes */
+.navbar {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background-color: rgba(var(--bs-tertiary-bg-rgb), 0.85) !important;
+}
+
+/* Background Logo */
+.background-logo {
+    position: relative;
+    min-height: 100vh;
+}
+
+.background-logo::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background: url("/static/android-chrome-512x512.png") center center no-repeat;
+    background-size: 45vmin;
+
+    opacity: 0.4;
+    pointer-events: none;   /* Allows clicking through the image */
+    z-index: -1;
+}

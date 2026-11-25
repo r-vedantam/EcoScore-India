@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="text-center mt-5">
+    <h1 class="display-1 fw-bold text-danger">{{ top }}</h1>
+    <h2 class="display-6 mb-4">{{ bottom }}</h2>
+    <img alt="{{ top }}" class="img-fluid border rounded shadow-sm mb-4" src="https://http.cat/{{ top }}" title="{{ top }}" style="max-width: 400px;">
+    <div>
+        <a href="javascript:history.back()" class="btn btn-primary btn-lg">&larr; Go Back</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white border-0 py-3">
+                <h3 class="mb-0">Personalized City Ranking</h3>
+            </div>
+            <div class="card-body p-4 bg-body-tertiary">
+                <p class="lead mb-4">Answer these questions to adjust the city rankings based on your personal sensitivities to different pollutants.</p>
+
+                {% block rank_content %}
+                <form action="/rank" method="post">
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-body-emphasis">1. Do you have asthma, allergies, or respiratory issues?</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="asthma" id="asthma_yes" value="yes" required>
+                                <label class="form-check-label" for="asthma_yes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="asthma" id="asthma_no" value="no">
+                                <label class="form-check-label" for="asthma_no">No</label>
+                            </div>
+                        </div>
+                        <div class="form-text">If yes, cities with high PM2.5 will be penalized more heavily.</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-body-emphasis">2. Do you exercise or spend significant time outdoors daily?</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="outdoors" id="outdoors_yes" value="yes" required>
+                                <label class="form-check-label" for="outdoors_yes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="outdoors" id="outdoors_no" value="no">
+                                <label class="form-check-label" for="outdoors_no">No</label>
+                            </div>
+                        </div>
+                        <div class="form-text">If yes, Ozone (O3) and PM10 levels will be weighted higher.</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-body-emphasis">3. Do you have children under 12 or elderly family members?</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="children" id="children_yes" value="yes" required>
+                                <label class="form-check-label" for="children_yes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="children" id="children_no" value="no">
+                                <label class="form-check-label" for="children_no">No</label>
+                            </div>
+                        </div>
+                        <div class="form-text">If yes, overall AQI thresholds will be stricter.</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-body-emphasis">4. Are you highly sensitive to industrial/vehicular pollution?</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="industrial" id="ind_yes" value="yes" required>
+                                <label class="form-check-label" for="ind_yes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="industrial" id="ind_no" value="no">
+                                <label class="form-check-label" for="ind_no">No</label>
+                            </div>
+                        </div>
+                        <div class="form-text">If yes, NO2 and SO2 levels will be weighted higher.</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-body-emphasis" for="season">5. Which season are you considering for travel or relocation?</label>
+                        <select class="form-select bg-body" name="season" id="season" required>
+                            <option value="" disabled selected>Select a season</option>
+                            <option value="Winter">Winter (Jan - Feb)</option>
+                            <option value="Summer">Summer (Mar - May)</option>
+                            <option value="Monsoon">Monsoon (Jun - Sep)</option>
+                            <option value="Post-Monsoon">Post-Monsoon (Oct - Dec)</option>
+                            <option value="Any">Any (Full Year Average)</option>
+                        </select>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">Calculate My Ranking</button>
+                    </div>
+                </form>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

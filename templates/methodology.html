@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <h1 class="display-4 fw-bold text-body-emphasis mb-4">Methodology</h1>
+
+        <p class="lead mb-5">
+            EcoScore India transforms raw CPCB Air Quality Index (AQI) data into a more intuitive <strong>EcoQI Score</strong>, ranging from 0 to 100, where higher is better.
+        </p>
+
+        <h3 class="mb-3">The Problem with Raw AQI</h3>
+        <p class="mb-4">
+            Standard AQI uses a scale where lower is better (0-50 is Good). This can be unintuitive when combined with other livability scores where 100% is the ideal target. Furthermore, the bands are not linear.<br>
+            We apply a piecewise mathematical transformation to invert the AQI scale into a 0-100 grade, which we call <strong>EcoQI</strong>. The formula ensures that severe pollution drops the score rapidly.
+        </p>
+
+        <div class="table-responsive shadow-sm rounded mb-5">
+            <table class="table table-bordered mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>CPCB AQI Range</th>
+                        <th>Category</th>
+                        <th>EcoQI Score Range</th>
+                        <th>Letter Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0 - 50</td>
+                        <td><span class="text-success fw-bold">Good</span></td>
+                        <td>80.0 - 100.0</td>
+                        <td><span class="badge bg-success">A+</span> or <span class="badge bg-success">A</span></td>
+                    </tr>
+                    <tr>
+                        <td>51 - 100</td>
+                        <td><span class="text-info fw-bold">Satisfactory</span></td>
+                        <td>50.0 - 79.9</td>
+                        <td><span class="badge bg-info text-dark">B</span></td>
+                    </tr>
+                    <tr>
+                        <td>101 - 200</td>
+                        <td><span class="text-warning fw-bold">Moderate</span></td>
+                        <td>15.0 - 49.9</td>
+                        <td><span class="badge bg-warning text-dark">C</span></td>
+                    </tr>
+                    <tr>
+                        <td>201 - 300</td>
+                        <td><span style="color: #fd7e14;" class="fw-bold">Poor</span></td>
+                        <td>5.0 - 14.9</td>
+                        <td><span class="badge bg-danger">D</span></td>
+                    </tr>
+                    <tr>
+                        <td>301 - 400+</td>
+                        <td><span class="text-danger fw-bold">Very Poor / Severe</span></td>
+                        <td>0.0 - 4.9</td>
+                        <td><span class="badge bg-dark text-white">F</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="mb-3">Data Source</h3>
+        <p class="mb-4 text-muted">
+            Air quality data © Central Pollution Control Board (CPCB), India. Data was extracted from official CPCB bulletins. <em>This is not an official CPCB product.</em>
+        </p>
+    </div>
+</div>
+{% endblock %}
